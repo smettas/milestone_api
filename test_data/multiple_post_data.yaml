@@ -15,7 +15,3 @@ multiple_posts:
   - title: "Post 4"
     body: "This is the fourth post"
     userId: 4
-
-  - title: "Post 5"
-    body: "This is the fifth post"
-    userId: 5
