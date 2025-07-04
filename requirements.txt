@@ -1,2 +1,5 @@
-
+requests
+allure-pytest
 jsonschema
+pytest
+PyYAML
