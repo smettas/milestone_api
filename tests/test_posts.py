@@ -119,4 +119,11 @@ def test_create_post_parameterized(api, payload):
         res = api.create_post(payload)
     assert res.status_code == 201
     assert res.json()["title"] == payload["title"]
-    allure.attach(str(res.json()), name="Response Body", attachment_type=allure.attachment_type.JSON)
+    allure.attach(str(res.json()), name="Response Body", attachment_type=allure.attachment_type.JSON)\
+    
+
+@allure.title("Test Get Post by ID = 10")
+def test_get_post_id_10(api):
+    res = api.get_post_by_id(10)
+    assert res.status_code == 200
+    assert res.json()["id"] == 10
