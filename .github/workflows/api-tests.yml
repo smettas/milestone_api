@@ -34,7 +34,7 @@ jobs:
         pytest --alluredir=reports/allure-results
 
     - name: Upload Allure results as artifact
-      uses: actions/Upload-artifact@v3
+      uses: actions/Upload-artifact@v4
       with:
         name: allure-results
         path: reports/allure-results
