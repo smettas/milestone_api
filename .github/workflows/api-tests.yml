@@ -4,11 +4,11 @@ name: API Tests pipeline
 on:
   push:
     branches:
-      -main
-      -feature/**
-  pull-request:
+      - main
+      - feature/**
+  pull_request:
     branches:
-      -main
+      - main
 
 jobs:
   run-tests-api:
@@ -26,12 +26,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        PIP install -r requirements.txt
+        pip install -r requirements.txt
         pip install allure-pytest jsonschema
 
     - name: Run pytest with allure results
       run: |
-        pytest --alluredir=repors/allure-results
+        pytest --alluredir=reports/allure-results
 
     - name: Upload Allure results as artifact
       uses: actions/Upload-artifact@v3
