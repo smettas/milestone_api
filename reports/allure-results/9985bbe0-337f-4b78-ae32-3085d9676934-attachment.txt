@@ -1,0 +1,2 @@
+2025-06-30 21:52:37,251 - INFO - base_api - [PUT] URL: https://jsonplaceholder.typicode.com//posts/abc | JSON: {'id': 'abc', 'title': 'Bad ID', 'body': 'ID is a string', 'userId': 1}
+2025-06-30 21:52:38,069 - INFO - base_api - Status code: 500

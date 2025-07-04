@@ -1,0 +1,2 @@
+2025-06-30 21:52:36,138 - INFO - base_api - [GET] URL: https://jsonplaceholder.typicode.com//posts/1 | PARAMS: None
+2025-06-30 21:52:36,177 - INFO - base_api - Status code: 200

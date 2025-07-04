@@ -1,0 +1,2 @@
+2025-07-01 19:15:40,063 - INFO - base_api - [POST] URL: https://jsonplaceholder.typicode.com//posts | JSON: {}
+2025-07-01 19:15:40,707 - INFO - base_api - Status code: 201

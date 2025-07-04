@@ -1,0 +1,12 @@
+
+missing_title:
+  body: "This is missing the title"
+  userId: 1
+
+invalid_id_post:
+  id: "abc"
+  title: "Bad ID"
+  body: "ID is a string"
+  userId: 1
+
+empty_payload: {}

@@ -1,0 +1,13 @@
+
+
+create_post:
+  title: "API Automation"
+  body: "This post is created by Pytest!"
+  userId: 2
+
+update_post:
+  id: 1
+  title: "Updated Title will be soon"
+  body: "Body is updated"
+  userId: 2
+

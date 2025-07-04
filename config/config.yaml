@@ -1,0 +1,33 @@
+
+#env: stage   # switch from qa to stage
+env: qa
+
+environments:
+  qa:
+    base_url_api: "https://jsonplaceholder.typicode.com/"
+    timeout: 10
+    auth_token: "fake-jwt-token-12345"
+    headers:
+      Content-Type: "application/json"
+
+  stage:
+    base_url_api: "www.stage.example.com"
+    timeout: 10
+    auth_token: "fake-jwt-token-12345"
+    headers:
+      Content-Type: "application/json"
+
+  prod:
+    base_url_api: "www.production.example.com"
+    timeout: 10
+    auth_token: "fake-jwt-token-12345"
+    headers:
+      Content-Type: "application/json"
+
+
+
+# 1.QA (for internal testing)
+
+# 2.Stage (pre-production)
+
+# 3.Production (live app)

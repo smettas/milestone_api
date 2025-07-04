@@ -1,0 +1,3 @@
+[32mINFO    [0m base_api:base_api.py:26 [POST] URL: https://jsonplaceholder.typicode.com//posts | JSON: {'title': 'API Automation', 'body': 'This post is created by Pytest!', 'userId': 2}
+[32mINFO    [0m base_api:base_api.py:54 Status code: 201
+[35mDEBUG   [0m base_api:base_api.py:56 Response Body: {'title': 'API Automation', 'body': 'This post is created by Pytest!', 'userId': 2, 'id': 101}

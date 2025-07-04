@@ -1,0 +1,19 @@
+2025-06-30 13:04:22,916 - INFO - base_api - [POST] URL: https://jsonplaceholder.typicode.com//posts | JSON: {'body': 'This is missing the title', 'userId': 1}
+2025-06-30 13:04:23,689 - INFO - base_api - Status code: 201
+2025-06-30 13:04:23,690 - DEBUG - base_api - Response Body: {'body': 'This is missing the title', 'userId': 1, 'id': 101}
+2025-06-30 13:04:23,847 - INFO - base_api - [PUT] URL: https://jsonplaceholder.typicode.com//posts/abc | JSON: {'id': 'abc', 'title': 'Bad ID', 'body': 'ID is a string', 'userId': 1}
+2025-06-30 13:04:24,482 - INFO - base_api - Status code: 500
+2025-06-30 13:04:24,483 - DEBUG - base_api - TypeError: Cannot read properties of undefined (reading 'id')
+    at update (/app/node_modules/json-server/lib/server/router/plural.js:262:24)
+    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+    at next (/app/node_modules/express/lib/router/route.js:137:13)
+    at next (/app/node_modules/express/lib/router/route.js:131:14)
+    at Route.dispatch (/app/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+    at /app/node_modules/express/lib/router/index.js:281:22
+    at param (/app/node_modules/express/lib/router/index.js:354:14)
+    at param (/app/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/app/node_modules/express/lib/router/index.js:410:3)
+2025-06-30 13:04:24,493 - INFO - base_api - [POST] URL: https://jsonplaceholder.typicode.com//posts | JSON: {}
+2025-06-30 13:04:25,155 - INFO - base_api - Status code: 201
+2025-06-30 13:04:25,155 - DEBUG - base_api - Response Body: {'id': 101}
