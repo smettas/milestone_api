@@ -126,3 +126,9 @@ def test_get_post_id_10(api):
     res = api.get_post_by_id(10)
     assert res.status_code == 200
     assert res.json()["id"] == 10
+
+@allure.title("Test Get Post by ID = 10")
+def test_get_post_id_11(api):
+    res = api.get_post_by_id(11)
+    assert res.status_code == 200
+    assert res.json()["id"] == 11
