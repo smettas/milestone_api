@@ -1,4 +1,3 @@
-
 name: API Tests pipeline
 
 on:
@@ -16,10 +15,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/Checkout@v3
+      uses: actions/checkout@v3
 
     - name: Setup python
-      uses: actions/Setup-python@v4
+      uses: actions/setup-python@v4
       with:
         python-version: 3.10.13
 
@@ -34,7 +33,32 @@ jobs:
         pytest --alluredir=reports/allure-results
 
     - name: Upload Allure results as artifact
-      uses: actions/Upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name: allure-results
         path: reports/allure-results
+
+  deploy-report:
+    needs: run-tests-api     # ✅ run only after tests pass
+    if: success()            # ✅ skip if tests fail
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Allure CLI
+      run: |
+        sudo apt-add-repository ppa:qameta/allure -y
+        sudo apt-get update
+        sudo apt-get install allure -y
+
+    - name: Generate Allure HTML report
+      run: |
+        allure generate reports/allure-results -o reports/allure-report --clean
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: reports/allure-report
