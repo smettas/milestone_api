@@ -49,16 +49,20 @@ jobs:
 
     - name: Install Allure CLI
       run: |
-        sudo apt-add-repository ppa:qameta/allure -y
-        sudo apt-get update
-        sudo apt-get install allure -y
+        curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz
+        tar -zxvf allure.tgz
+        sudo mv allure-2.25.0 /opt/allure
+        sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+        allure --version
+
 
     - name: Generate Allure HTML report
       run: |
         allure generate reports/allure-results -o reports/allure-report --clean
 
+    #✅ This tells GitHub Actions to use your new secure token with write permission to push the Allure HTML to the gh-pages branch.
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}
         publish_dir: reports/allure-report
