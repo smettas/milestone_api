@@ -1,0 +1,2 @@
+2025-07-01 18:59:46,209 - INFO - base_api - [POST] URL: https://jsonplaceholder.typicode.com//posts | JSON: {'title': 'API Automation', 'body': 'This post is created by Pytest!', 'userId': 2}
+2025-07-01 18:59:46,851 - INFO - base_api - Status code: 201

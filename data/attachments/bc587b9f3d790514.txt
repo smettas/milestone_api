@@ -1,0 +1,3 @@
+[32mINFO    [0m base_api:base_api.py:26 [POST] URL: https://jsonplaceholder.typicode.com//posts | JSON: {'title': 'Post 5', 'body': 'This is the fifth post', 'userId': 5}
+[32mINFO    [0m base_api:base_api.py:54 Status code: 201
+[35mDEBUG   [0m base_api:base_api.py:56 Response Body: {'title': 'Post 5', 'body': 'This is the fifth post', 'userId': 5, 'id': 101}

@@ -1,0 +1,2 @@
+2025-06-30 21:52:34,613 - INFO - base_api - [PUT] URL: https://jsonplaceholder.typicode.com//posts/1 | JSON: {'id': 1, 'title': 'Updated Title will be soon', 'body': 'Body is updated', 'userId': 2}
+2025-06-30 21:52:35,405 - INFO - base_api - Status code: 200

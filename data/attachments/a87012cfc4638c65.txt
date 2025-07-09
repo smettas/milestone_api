@@ -1,0 +1,2 @@
+2025-07-01 21:43:11,056 - INFO - base_api - [POST] URL: https://jsonplaceholder.typicode.com//posts | JSON: {'body': 'This is missing the title', 'userId': 1}
+2025-07-01 21:43:11,701 - INFO - base_api - Status code: 201

@@ -1,0 +1,2 @@
+2025-06-30 21:52:35,427 - INFO - base_api - [DELETE] URL: https://jsonplaceholder.typicode.com//posts/1
+2025-06-30 21:52:36,125 - INFO - base_api - Status code: 200
