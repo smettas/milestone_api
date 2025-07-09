@@ -1,68 +1,111 @@
+# ✅ This GitHub Actions workflow runs API tests using Pytest,
+# generates Allure reports, publishes them to GitHub Pages,
+# and sends test result notifications to Slack.
+
 name: API Tests pipeline
 
 on:
   push:
     branches:
-      - main
-      - feature/**
+      - main           # 🔄 Trigger workflow when code is pushed to main branch
+      - feature/**     # 🔄 Trigger on any feature branches (e.g. feature/login-fix)
   pull_request:
     branches:
-      - main
+      - main           # 🔄 Trigger when a PR is created/updated targeting main
 
 jobs:
-  run-tests-api:
+  run-tests-api:         # ✅ Job: Run API tests and send Slack notification
     runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3     # 📥 Pull the code from the repo
 
     - name: Setup python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.10.13
+        python-version: 3.10.13     # 🐍 Install Python version used in your project
 
     - name: Install dependencies
-      run: |
+      run: |                       # 📦 Install required libraries
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install allure-pytest jsonschema
 
     - name: Run pytest with allure results
       run: |
-        pytest --alluredir=reports/allure-results
+        pytest --alluredir=reports/allure-results    # 🧪 Run tests and output Allure raw results
 
     - name: Upload Allure results as artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4              # 💾 Upload raw results to GitHub Actions
       with:
         name: allure-results
         path: reports/allure-results
 
-  deploy-report:
-    needs: run-tests-api     # ✅ run only after tests pass
-    if: success()            # ✅ skip if tests fail
+
+    # 🔔 Notify team in Slack with test result
+    - name: Send Slack Notification                 
+      if: always()                                  # 🔁 Run even if tests fail
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # 🔐 Webhook stored in repo secrets
+      run: |
+        status="Success"
+        color="#36a64f"
+        if [ "${{ job.status }}" != "success" ]; then
+          status="Failed"
+          color="#ff0000"
+        fi
+
+        curl -X POST -H 'Content-type: application/json' \
+        --data "{
+          \"attachments\": [
+            {
+              \"fallback\": \"Test Run - ${status}\",
+              \"color\": \"${color}\",
+              \"title\": \"🚀 API Test Report - ${status}\",
+              \"title_link\": \"https://smettas.github.io/milestone_api/\",
+              \"fields\": [
+                {
+                  \"title\": \"Branch\",
+                  \"value\": \"${{ github.ref_name }}\",
+                  \"short\": true
+                },
+                {
+                  \"title\": \"Trigger\",
+                  \"value\": \"${{ github.actor }}\",
+                  \"short\": true
+                }
+              ],
+              \"ts\": $(date +%s)
+            }
+          ]
+        }" $SLACK_WEBHOOK_URL
+
+
+  # 🌐 Job: Generate and deploy Allure HTML report to GitHub Pages      
+  deploy-report:                  
+    needs: run-tests-api          # ⏳ Wait for run-tests-api to finish
+    if: success()                 # 🚫 Skip if tests failed
     runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3   # 📥 Pull code to get the test results folder
 
     - name: Install Allure CLI
-      run: |
+      run: |                      # 🛠️ Manually download Allure CLI since PPA is deprecated
         curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz
         tar -zxvf allure.tgz
         sudo mv allure-2.25.0 /opt/allure
         sudo ln -s /opt/allure/bin/allure /usr/bin/allure
         allure --version
 
-
     - name: Generate Allure HTML report
       run: |
-        allure generate reports/allure-results -o reports/allure-report --clean
+        allure generate reports/allure-results -o reports/allure-report --clean   # 🧾 Convert JSON → HTML
 
-    #✅ This tells GitHub Actions to use your new secure token with write permission to push the Allure HTML to the gh-pages branch.
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        personal_token: ${{ secrets.PERSONAL_TOKEN }}
-        publish_dir: reports/allure-report
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}     # 🔐 PAT for write access to gh-pages
+        publish_dir: reports/allure-report                # 🌍 Folder to publish as website
